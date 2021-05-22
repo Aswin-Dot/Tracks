@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
+
+import { Context as AuthContext} from '../Context/authContext'
 import Spacer from '../Components/Spacer';
+import Modal from '../Components/Modal';
 
 import { Entypo } from "@expo/vector-icons";
 
 const SignupScreen = () => {
 
+  const {state, signUp} = useContext(AuthContext)
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [eye, setEye] = useState(true);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    state.errorMessage ? setVisible(true) : setVisible(false);
+  }, [state.errorMessage])
 
   return (
     <View style={styles.container}>
+      <Modal
+        visible={visible}
+        color={state.errorMessage ? 'red': 'black'}
+        toggleOverlay={() => setVisible(!visible)}
+        text={state.errorMessage}
+      />
       <Spacer>
         <Text h3>Signup to Tracker</Text>
       </Spacer>
@@ -35,11 +51,11 @@ const SignupScreen = () => {
           autoCorrect={false}
         />
         <TouchableOpacity style={styles.eye} onPress={() => setEye(!eye)}>
-          <Entypo name={eye ? 'eye-with-line': 'eye'} size={26} color="grey" />
+          <Entypo name={eye ? "eye-with-line" : "eye"} size={26} color="grey" />
         </TouchableOpacity>
       </Spacer>
       <Spacer>
-        <Button raised title="Signup" />
+        <Button raised onPress={() => signUp({email, password})} title="Signup" />
       </Spacer>
     </View>
   );
