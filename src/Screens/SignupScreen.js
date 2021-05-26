@@ -11,7 +11,7 @@ import { Entypo } from "@expo/vector-icons";
 const SignupScreen = () => {
 
   const {state, signUp} = useContext(AuthContext)
-
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [eye, setEye] = useState(true);
