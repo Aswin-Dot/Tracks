@@ -1,20 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, Button, Input } from "react-native-elements";
+import { View, StyleSheet } from "react-native";
+import { NavigationEvents } from 'react-navigation';
 
 import { Context as AuthContext} from '../Context/authContext'
-import Spacer from '../Components/Spacer';
+import AuthForm from '../Components/AuthForm';
 import Modal from '../Components/Modal';
-
-import { Entypo } from "@expo/vector-icons";
+import NavLink from "../Components/NavLink";
 
 const SignupScreen = () => {
 
-  const {state, signUp} = useContext(AuthContext)
-  
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [eye, setEye] = useState(true);
+  const {state, signUp, clearError} = useContext(AuthContext)
+
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -23,40 +19,23 @@ const SignupScreen = () => {
 
   return (
     <View style={styles.container}>
+      <NavigationEvents onWillFocus={clearError} />
       <Modal
         visible={visible}
-        color={state.errorMessage ? 'red': 'black'}
+        color={state.errorMessage ? "red" : "black"}
         toggleOverlay={() => setVisible(!visible)}
         text={state.errorMessage}
+        ok={clearError}
       />
-      <Spacer>
-        <Text h3>Signup to Tracker</Text>
-      </Spacer>
-      <Spacer>
-        <Input
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </Spacer>
-      <Spacer style={styles.pass}>
-        <Input
-          label="Password"
-          value={password}
-          secureTextEntry={eye}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <TouchableOpacity style={styles.eye} onPress={() => setEye(!eye)}>
-          <Entypo name={eye ? "eye-with-line" : "eye"} size={26} color="grey" />
-        </TouchableOpacity>
-      </Spacer>
-      <Spacer>
-        <Button raised onPress={() => signUp({email, password})} title="Signup" />
-      </Spacer>
+      <AuthForm
+        heading="Create a Tracks account"
+        buttonText="Sign Up"
+        onSubmit={signUp}
+      />
+      <NavLink
+        text="Already have an account, Go to Sign in!"
+        routeName="Signin"
+      />
     </View>
   );
 };
@@ -67,15 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     marginBottom: 100,
-  },
-  pass: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  eye: {
-    alignSelf: 'flex-end',
-    marginTop: -55,
-    marginRight: 15
   }
 });
 
