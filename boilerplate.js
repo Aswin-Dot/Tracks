@@ -9,6 +9,6 @@ const Name = () => {
     )
 }
 
-const styles = Stylesheet({});
+const styles = Stylesheet.create({});
 
 export default Name;

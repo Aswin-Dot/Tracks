@@ -10,6 +10,8 @@ const authReducer = (state, action) => {
       return { ...state, errorMessage: action.payload };
     case "sign_in":
       return { errorMessage: "", token: action.payload };
+    case 'sign_out':
+      return { errorMessage: "", token: null };
     case 'clear_error': 
       return { ...state, errorMessage: ""}
     default:
@@ -38,6 +40,7 @@ const signIn = (dispatch) => {
     }
   };
 };
+
 const signUp = (dispatch) => {
   return async (email, password) => {
     try {
@@ -60,9 +63,35 @@ const signUp = (dispatch) => {
   };
 };
 
-const signOut = (dispatch) => {
-  return () => {};
+const signOut = (dispatch) => async() => {
+  try {
+    await AsyncStorage.removeItem('token');
+    dispatch({ type: 'sign_out' })
+    navigate('loginFlow')
+  } catch (err) {
+    dispatch({
+      type: 'add_error',
+      payload: 'error logging out! Please try again.'})
+  }
 };
+
+const autoSignin = (dispatch) => async() => {
+  try{
+    const token = await AsyncStorage.getItem("token");
+    if(token) {
+      dispatch({
+        type: 'sign_in',
+        payload: token})
+      navigate('mainFlow')
+    } else {
+      navigate("loginFlow");
+    }
+  }catch(err) {
+    dispatch({
+      type: 'add_error',
+      payload: 'error logging in! Please try again.'})
+  }
+}
 
 const clearError = (dispatch) => {
   return () => {
@@ -73,6 +102,6 @@ const clearError = (dispatch) => {
 
 export const { Context, Provider } = createContext(
   authReducer,
-  { signIn, signUp, signOut, clearError },
+  { signIn, signUp, signOut, autoSignin, clearError },
   { token: "", errorMessage: "" }
 );

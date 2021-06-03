@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, StatusBar } from "react-native";
 import { NavigationEvents } from 'react-navigation';
 
 import { Context as AuthContext} from '../Context/authContext'
@@ -20,6 +20,7 @@ const SignupScreen = () => {
   return (
     <View style={styles.container}>
       <NavigationEvents onWillFocus={clearError} />
+      <StatusBar backgroundColor="gray" barStyle="light-content" />
       <Modal
         visible={visible}
         color={state.errorMessage ? "red" : "black"}
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    marginBottom: 100,
+    marginBottom: 80,
   }
 });
 
