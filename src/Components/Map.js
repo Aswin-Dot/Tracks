@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     maps: {
         height: 250,
-        marginHorizontal: 5,
+        margin:5,
         borderRadius: 5
     }
 });

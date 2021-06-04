@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Stylesheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
 
 const Name = () => {
     return (
@@ -9,6 +9,6 @@ const Name = () => {
     )
 }
 
-const styles = Stylesheet.create({});
+const styles = StyleSheet.create({});
 
 export default Name;
