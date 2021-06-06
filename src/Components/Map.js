@@ -7,7 +7,7 @@ import { Context as locationContext } from '../Context/locationContext';
 
 const Map = () => {
 
-  const { state: { currentLocation } } = useContext(locationContext);
+  const { state: { currentLocation, locations } } = useContext(locationContext);
 
   let points = [];
 
@@ -42,7 +42,7 @@ const Map = () => {
       <Marker coordinate={currentLocation.coords}>
         <Ionicons name="ios-location-sharp" size={34} color="black" />
       </Marker>
-      <Polyline coordinates={points} />
+      <Polyline coordinates={locations.map(loc => loc.coords)} />
     </MapView>
   );
 };

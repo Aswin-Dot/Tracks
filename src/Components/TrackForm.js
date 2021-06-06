@@ -7,12 +7,12 @@ import Spacer from './Spacer';
 
 const TrackForm = () => {
 
-    const {
-      state: { recording, name, locations },
-      startRecording,
-      stopRecording,
-      changeName
-    } = useContext(locationContext);
+  const {
+    state: { recording, name, locations },
+    startRecording,
+    stopRecording,
+    changeName
+  } = useContext(locationContext);
 
   return (
     <View>
