@@ -15,6 +15,7 @@ import SplashScreen from './src/Screens/SplashScreen';
 
 import { Provider as AuthProvider } from "./src/Context/authContext";
 import { Provider as LocationProvider } from "./src/Context/locationContext";
+import { Provider as TracksProvider } from "./src/Context/locationContext";
 import { setNavigator } from './src/navigationRef';
 
 const SwitchNavigator = createSwitchNavigator({
@@ -40,9 +41,11 @@ export default () => {
     <SafeAreaProvider>
       <ThemeProvider>
         <AuthProvider>
-          <LocationProvider>
-            <App ref={(navigator) => setNavigator(navigator)} />
-          </LocationProvider>
+          <TracksProvider>
+            <LocationProvider>
+              <App ref={(navigator) => setNavigator(navigator)} />
+            </LocationProvider>
+          </TracksProvider>
         </AuthProvider>
       </ThemeProvider>
     </SafeAreaProvider>

@@ -26,10 +26,27 @@ const TrackForm = () => {
         />
       </Spacer>
       {recording ? (
-        <Button title="Stop" buttonStyle={styles.button} onPress={stopRecording}/>
+        <Button
+          title="Stop"
+          buttonStyle={styles.button}
+          onPress={stopRecording}
+        />
       ) : (
-        <Button title="Start Recording" buttonStyle={styles.button} onPress={startRecording}/>
+        <Button
+          title="Start Recording"
+          buttonStyle={styles.button}
+          onPress={startRecording}
+        />
       )}
+      <Spacer>
+        {!recording && locations.length ? (
+          <Button
+            title="Save Recording"
+            buttonStyle={styles.button}
+            // onPress={stopRecording}
+          />
+        ) : null}
+      </Spacer>
     </View>
   );
 };
