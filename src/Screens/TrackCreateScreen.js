@@ -2,6 +2,7 @@ import React, { useContext, useCallback } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { withNavigationFocus } from 'react-navigation';
 import { Header } from 'react-native-elements'
+import { FontAwesome } from "@expo/vector-icons";
 
 import Map from '../Components/Map';
 import Spacer from '../Components/Spacer';
@@ -38,6 +39,13 @@ const TrackCreateScreen = ({ isFocused }) => {
       <TrackForm />
     </View>
   );
+};
+
+TrackCreateScreen.navigationOptions = {
+  tabBarIcon: <FontAwesome name="plus-square" size={24} color="#2574a9" />,
+  tabBarLabel: () => {
+    return null;
+  },
 };
 
 const styles = StyleSheet.create({

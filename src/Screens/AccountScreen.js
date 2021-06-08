@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, Text, Header } from "react-native-elements";
 // import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Spacer from '../Components/Spacer';
 import { Context as AuthContext } from '../Context/authContext';
@@ -38,10 +39,15 @@ const styles = StyleSheet.create({
   }
 });
 
-AccountScreen.navigationOptions = () => {
-  return {
-    headerShown: false,
-  };
+AccountScreen.navigationOptions = {
+  showIcon: true,
+  tabBarIcon: (
+    <MaterialCommunityIcons name="account-circle" size={24} color="#2574a9" />
+  ),
+  tabBarLabel: () => {
+    return null;
+  },
 };
+
 
 export default AccountScreen;

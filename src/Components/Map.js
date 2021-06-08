@@ -9,8 +9,6 @@ const Map = () => {
 
   const { state: { currentLocation, locations } } = useContext(locationContext);
 
-  let points = [];
-
   if(!currentLocation){
     return (
       <View style={[styles.container, styles.horizontal]}>
